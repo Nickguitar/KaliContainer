@@ -1,10 +1,18 @@
 # KaliContainer
 Script to automate deploying a kali container
 
-Simply run this script as root and it will install docker, pull kali image,
+Simply run this script as root and it will install docker, pull kali image, create the container, start it and add an alias into .bashrc.
+
+If you want to open publish a container's port, you can specify them:
+
+E.g: publish ports 80, 22 and 1000-1005 and map them to themselves:
+
+`# ./script.sh 80:80 22:22 1000-1005:1000-1005`
 
 ```bash
 #!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then echo "Must be run as root"; exit; fi
 
 rel=$(lsb_release -cs)
 x=""
